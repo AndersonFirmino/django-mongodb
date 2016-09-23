@@ -84,7 +84,7 @@ WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 #         'PORT': mongo_connect['port'],
 #     }
 # }
-
+{% endif %}
 #################################################
 # Local mongodb database
 #################################################
