@@ -85,6 +85,7 @@ WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 #     }
 # }
 {% endif %}
+
 #################################################
 # Local mongodb database
 #################################################
