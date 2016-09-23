@@ -5,6 +5,7 @@ import os
 
 def make_secret_key():
     print("Criando a secret_key")
+    print(os.getcwd())
     file = None
 
     with open("../{{ cookiecutter.nome_do_projeto }}/settings.py", "r") as f:
