@@ -1,0 +1,10 @@
+---
+applications:
+- name: bunda
+  instances: 1
+  memory: 128M
+  path: .
+  host: bunda
+  buildpack: https://github.com/cloudfoundry/python-buildpack
+  services:
+  - mongo_teste
