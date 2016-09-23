@@ -15,7 +15,7 @@ def make_secret_key():
 
     file = file.replace("SECRET", secret_key, 1)
 
-    with open("{0}/{{ cookiecutter.nome_do_projeto }}/settings.py/settings.py".format(diretorio), "w") as f:
+    with open("{0}/{{ cookiecutter.nome_do_projeto }}/settings.py".format(diretorio), "w") as f:
         f.write(file)
     print("Secret Key ok")
 
