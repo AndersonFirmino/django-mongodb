@@ -11,7 +11,7 @@ $ cookiecutter https://github.com/AndersonFirmino/django-mongodb
 ```
 Você sera questionado sobre seu nome, nome do projeto, banco do mongodb e etc...
 
-:heavy_exclamation_mark:(NOTA) Estou usando como configuração neste projeto o django 1.6.11  
+:heavy_exclamation_mark:(NOTA) Este template usa o django 1.6.11 por padrão.  
 Pois até o momento em suas versões atuais não encontrei suporte nativo para o mongodb.
 
 Features:
