@@ -6,7 +6,7 @@ applications:
   path: .
   host: {{ cookiecutter.host_name }}
   buildpack: https://github.com/cloudfoundry/python-buildpack
-{% if service != "meu_servico_mongo"  %}
+{% if cookiecutter.mongo_service_name != "meu_servico_mongo"  %}
   services:
   - {{ cookiecutter.mongo_service_name }}
 {% endif %}
