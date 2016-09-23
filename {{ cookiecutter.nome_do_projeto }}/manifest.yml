@@ -4,7 +4,7 @@ applications:
   instances: 1
   memory: 128M
   path: .
-  host: {{ cookiecutter.host-name }}
+  host: {{ cookiecutter.host_name }}
   buildpack: https://github.com/cloudfoundry/python-buildpack
 {% if service != "meu_servico_mongo"  %}
   services:
