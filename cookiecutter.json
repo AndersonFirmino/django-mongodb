@@ -5,6 +5,5 @@
     "host_name":"meu-site",
     "mongo_service_name":"meu_servico_mongo",
     "cloudfoundry":"y",
-    "local_mongo_database_name":"dj-mongodb",
-    "secret_key":"it will change"
+    "local_mongo_database_name":"dj-mongodb"    
 }
