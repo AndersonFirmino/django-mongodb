@@ -55,7 +55,7 @@ ROOT_URLCONF = '{{ cookiecutter.nome_do_projeto }}.urls'
 
 WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 
-{% if cloudfoundry == "y" %}
+{% if cookiecutter.cloudfoundry == "y" %}
 # Database
 # https://django-mongodb-engine.readthedocs.io/en/latest/index.html
 
