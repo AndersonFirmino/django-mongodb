@@ -13,7 +13,7 @@ def make_secret_key():
 
     secret_key = binascii.hexlify(os.urandom(24))
 
-    file = file.replace("SECRET", secret_key, 1)
+    file = file.replace("SECRET", secret_key)
 
     with open("{0}/{{ cookiecutter.nome_do_projeto }}/settings.py".format(diretorio), "w") as f:
         f.write(file)
