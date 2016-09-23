@@ -1,10 +1,12 @@
 ---
 applications:
-- name: bunda
+- name: {{ cookiecutter.nome_do_projeto }}
   instances: 1
   memory: 128M
   path: .
-  host: bunda
+  host: {{ cookiecutter.host-name }}
   buildpack: https://github.com/cloudfoundry/python-buildpack
+{% if service != "meu_servico_mongo"  %}
   services:
-  - mongo_teste
+  - {{ cookiecutter.mongo_service_name }}
+{% endif %}

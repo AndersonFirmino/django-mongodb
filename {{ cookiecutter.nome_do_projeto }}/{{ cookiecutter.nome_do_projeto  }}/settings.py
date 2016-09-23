@@ -10,6 +10,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import json
+import re
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -17,33 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'cck#4hiycu!@w)69!rq)vdewlu)2r=$x)m@3jnwqi%p$38-eau'
+SECRET_KEY = '{{ cookiecutter.secret_key }}'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-import logging
-
-if DEBUG:
-    # will output to your console
-    logging.basicConfig(
-        level = logging.DEBUG,
-        format = '%(asctime)s %(levelname)s %(message)s',
-    )
-else:
-    # will output to logging file
-    logging.basicConfig(
-        level = logging.DEBUG,
-        format = '%(asctime)s %(levelname)s %(message)s',
-        filename = '/logs_django.log',
-        filemode = 'a'
-    )
-
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
-USE_X_FORWARDED_HOST = True
 
 # Application definition
 
@@ -56,7 +40,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'project_teste',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,57 +51,49 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'mongo_django.urls'
+ROOT_URLCONF = '{{ cookiecutter.nome_do_projeto }}.urls'
 
-WSGI_APPLICATION = 'mongo_django.wsgi.application'
+WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 
-
+{% if cloudfoundry == "y" %}
 # Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+# https://django-mongodb-engine.readthedocs.io/en/latest/index.html
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-import json
-import re
+# Descomente para o deploy
 
-# TODO: Consertar este trecho aqui abaixo, pois funciona com o mongodb
 # vcap_services = json.loads(os.environ['VCAP_SERVICES'])
 # uri = vcap_services['mlab'][0]['credentials']
 #
 # g = re.match('^mongodb\://(.*):(.*)@(.*):([0-9]*)\/(.*)$', uri)
 #
 # mongo_connect = {
-#         "username": g.group(1),
-#         "password": g.group(2),
-#         "hostname": g.group(3),
-#         "port": int(g.group(4)),
-#         "db_name": g.group(5),
+#     "username": g.group(1),
+#     "password": g.group(2),
+#     "hostname": g.group(3),
+#     "port": g.group(4)),
+#     "db_name": g.group(5),
+# }
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_mongodb_engine',
+#         'NAME': mongo_connect['db_name'],
+#         'USER': mongo_connect['username'],
+#         'PASSWORD': mongo_connect['password'],
+#         'HOST': mongo_connect['hostname'],
+#         'PORT': mongo_connect['port'],
 #     }
+# }
 
+#################################################
+# Local mongodb database
+#################################################
 DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_engine',
-        'NAME': u'CloudFoundry_3kg6rngl_j1pqigc9', #mongo_connect['db_name'],
-        'USER': u'CloudFoundry_3kg6rngl_j1pqigc9_s3qoenrp', #mongo_connect['username'],
-        'PASSWORD': u'A1JcccKvPIc2ZtWNC_ne-JESe57nLSs2', #mongo_connect['password'],
-        'HOST': u'ds035776.mlab.com', #mongo_connect['hostname'],
-        'PORT': u'35776', #mongo_connect['port'],
-        # 'OPTIONS': {
-        #     'uri': db_credentials['uri'],
-        # }
-    }
+        'NAME': '{{ cookiecutter.local_mongo_database_name }}',
+   }
 }
-
-# DATABASES = {
-#    'default' : {
-#       'ENGINE' : 'django_mongodb_engine',
-#       'NAME' : 'banco_teste'
-#    }
-# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
