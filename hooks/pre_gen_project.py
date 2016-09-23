@@ -5,6 +5,6 @@ import os
 
 
 cookiecutter(
-    'django-mongodb/',
+    'https://github.com/AndersonFirmino/django-mongodb',
     extra_context={'secret_key': binascii.hexlify(os.urandom(24)) }
 )
