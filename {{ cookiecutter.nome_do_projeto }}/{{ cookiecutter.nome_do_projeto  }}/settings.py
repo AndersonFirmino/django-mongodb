@@ -16,6 +16,10 @@ import re
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+ADMINS = (
+    ('{{ cookiecutter.admin_login }}', '{{ cookiecutter.e_mail }}'),
+)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -60,7 +64,49 @@ WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 # https://django-mongodb-engine.readthedocs.io/en/latest/index.html
 
 # Descomente para o deploy
+#################################################
+# mlab mongodb database
+#################################################
+vcap_services = json.loads(os.environ['VCAP_SERVICES'])
+uri = vcap_services['mlab'][0]['credentials']
 
+g = re.match('^mongodb\://(.*):(.*)@(.*):([0-9]*)\/(.*)$', uri)
+
+mongo_connect = {
+    "username": g.group(1),
+    "password": g.group(2),
+    "hostname": g.group(3),
+    "port": g.group(4)),
+    "db_name": g.group(5),
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_mongodb_engine',
+        'NAME': mongo_connect['db_name'],
+        'USER': mongo_connect['username'],
+        'PASSWORD': mongo_connect['password'],
+        'HOST': mongo_connect['hostname'],
+        'PORT': mongo_connect['port'],
+    }
+}
+#################################################
+# Local mongodb database
+#################################################
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_mongodb_engine',
+#         'NAME': '{{ cookiecutter.local_mongo_database_name }}',
+#    }
+# }
+{% else %}
+# Database
+# https://django-mongodb-engine.readthedocs.io/en/latest/index.html
+
+# Descomente para o deploy
+#################################################
+# mlab mongodb database
+# #################################################
 # vcap_services = json.loads(os.environ['VCAP_SERVICES'])
 # uri = vcap_services['mlab'][0]['credentials']
 #
@@ -84,7 +130,6 @@ WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 #         'PORT': mongo_connect['port'],
 #     }
 # }
-{% endif %}
 
 #################################################
 # Local mongodb database
@@ -95,6 +140,8 @@ DATABASES = {
         'NAME': '{{ cookiecutter.local_mongo_database_name }}',
    }
 }
+{% endif %}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

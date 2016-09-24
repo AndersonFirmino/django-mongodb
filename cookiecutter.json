@@ -1,9 +1,10 @@
 {
     "nome":"Anderson Araujo",
-    "e-mail":"anderson.araujo@gmail.com",
+    "admin_login": "coderpy",
+    "e_mail":"anderson.araujo@gmail.com",
     "nome_do_projeto": "django_mongodb",
     "host_name":"meu-site",
     "mongo_service_name":"meu_servico_mongo",
     "cloudfoundry":"y",
-    "local_mongo_database_name":"dj-mongodb"    
+    "local_mongo_database_name":"dj-mongodb"
 }
