@@ -1,22 +1,20 @@
 # django mongodb
 
-Template django+mongodb simples para cookiecutter
-mongodb :smile:
+Simple template django+mongodb for cookiecutter. :smile:
 
-Forma de uso
+How to use:
 
 ```
 $ pip install cookiecutter
 $ cookiecutter https://github.com/AndersonFirmino/django-mongodb
 ```
-Você sera questionado sobre seu nome, nome do projeto, banco do mongodb e etc...
 
-:heavy_exclamation_mark:(NOTA) Este template usa o django 1.6.11 por padrão.  
-Pois até o momento em suas versões atuais não encontrei suporte nativo para o mongodb.
+You will be questioned about your name, project name, bank of mongodb and etc.
+
+:heavy_exclamation_mark:(Note) This template use the django 1.6.11 by default.  
+Because until this moment, in your current versions, I did not find native support to mongodb.
 
 Features:
-  * Configuração para usar com o Cloud Foundry (pivotal)  
-
-
+   * Configuration to use with the Cloud Foundry (pivotal)  
 
 Stars and Forks are always welcome :wink: :snake:
