@@ -68,7 +68,7 @@ WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 # mlab mongodb database
 #################################################
 vcap_services = json.loads(os.environ['VCAP_SERVICES'])
-uri = vcap_services['mlab'][0]['credentials']
+uri = unicode(vcap_services['mlab'][0]['credentials']['uri'])
 
 g = re.match('^mongodb\://(.*):(.*)@(.*):([0-9]*)\/(.*)$', uri)
 
