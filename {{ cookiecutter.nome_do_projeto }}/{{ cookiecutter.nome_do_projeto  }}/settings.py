@@ -106,7 +106,7 @@ DATABASES = {
 # Descomente para o deploy
 #################################################
 # mlab mongodb database
-# #################################################
+#################################################
 # vcap_services = json.loads(os.environ['VCAP_SERVICES'])
 # uri = vcap_services['mlab'][0]['credentials']
 #
