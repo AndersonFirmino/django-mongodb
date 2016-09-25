@@ -76,7 +76,7 @@ mongo_connect = {
     "username": g.group(1),
     "password": g.group(2),
     "hostname": g.group(3),
-    "port": g.group(4)),
+    "port": g.group(4),
     "db_name": g.group(5),
 }
 

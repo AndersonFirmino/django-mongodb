@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mongo_django.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ cookiecutter.nome_do_projeto }}.settings")
 
 from django.core.wsgi import get_wsgi_application
 #from whitenoise.django import DjangoWhiteNoise
