@@ -15,7 +15,6 @@ import re
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 ADMINS = (
     ('{{ cookiecutter.admin_login }}', '{{ cookiecutter.e_mail }}'),
 )
@@ -59,47 +58,50 @@ ROOT_URLCONF = '{{ cookiecutter.nome_do_projeto }}.urls'
 
 WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 
-{% if cookiecutter.cloudfoundry == "y" %}
+{ % if cookiecutter.cloudfoundry == "y" %}
 # Database
 # https://django-mongodb-engine.readthedocs.io/en/latest/index.html
 
-# Descomente para o deploy
-#################################################
-# mlab mongodb database
-#################################################
-vcap_services = json.loads(os.environ['VCAP_SERVICES'])
-uri = unicode(vcap_services['mlab'][0]['credentials']['uri'])
-
-g = re.match('^mongodb\://(.*):(.*)@(.*):([0-9]*)\/(.*)$', uri)
-
-mongo_connect = {
-    "username": g.group(1),
-    "password": g.group(2),
-    "hostname": g.group(3),
-    "port": g.group(4),
-    "db_name": g.group(5),
-}
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_mongodb_engine',
-        'NAME': mongo_connect['db_name'],
-        'USER': mongo_connect['username'],
-        'PASSWORD': mongo_connect['password'],
-        'HOST': mongo_connect['hostname'],
-        'PORT': mongo_connect['port'],
+if DEBUG:
+    #################################################
+    # Local mongodb database
+    #################################################
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_mongodb_engine',
+            'NAME': '{{ cookiecutter.local_mongo_database_name }}',
+        }
     }
-}
-#################################################
-# Local mongodb database
-#################################################
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_mongodb_engine',
-#         'NAME': '{{ cookiecutter.local_mongo_database_name }}',
-#    }
-# }
-{% else %}
+
+else:
+    #################################################
+    # mlab mongodb database
+    #################################################
+    vcap_services = json.loads(os.environ['VCAP_SERVICES'])
+    uri = unicode(vcap_services['mlab'][0]['credentials']['uri'])
+
+    g = re.match('^mongodb\://(.*):(.*)@(.*):([0-9]*)\/(.*)$', uri)
+
+    mongo_connect = {
+        "username": g.group(1),
+        "password": g.group(2),
+        "hostname": g.group(3),
+        "port": g.group(4),
+        "db_name": g.group(5),
+    }
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_mongodb_engine',
+            'NAME': mongo_connect['db_name'],
+            'USER': mongo_connect['username'],
+            'PASSWORD': mongo_connect['password'],
+            'HOST': mongo_connect['hostname'],
+            'PORT': mongo_connect['port'],
+        }
+    }
+
+{ % else %}
 # Database
 # https://django-mongodb-engine.readthedocs.io/en/latest/index.html
 
@@ -138,9 +140,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_engine',
         'NAME': '{{ cookiecutter.local_mongo_database_name }}',
-   }
+    }
 }
-{% endif %}
+{ % endif %}
 
 
 # Internationalization
@@ -155,7 +157,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
