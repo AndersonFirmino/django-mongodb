@@ -61,7 +61,6 @@ WSGI_APPLICATION = '{{ cookiecutter.nome_do_projeto }}.wsgi.application'
 { % if cookiecutter.cloudfoundry == "y" %}
 # Database
 # https://django-mongodb-engine.readthedocs.io/en/latest/index.html
-
 if DEBUG:
     #################################################
     # Local mongodb database
@@ -100,39 +99,7 @@ else:
             'PORT': mongo_connect['port'],
         }
     }
-
-{ % else %}
-# Database
-# https://django-mongodb-engine.readthedocs.io/en/latest/index.html
-
-# Descomente para o deploy
-#################################################
-# mlab mongodb database
-#################################################
-# vcap_services = json.loads(os.environ['VCAP_SERVICES'])
-# uri = vcap_services['mlab'][0]['credentials']
-#
-# g = re.match('^mongodb\://(.*):(.*)@(.*):([0-9]*)\/(.*)$', uri)
-#
-# mongo_connect = {
-#     "username": g.group(1),
-#     "password": g.group(2),
-#     "hostname": g.group(3),
-#     "port": g.group(4)),
-#     "db_name": g.group(5),
-# }
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_mongodb_engine',
-#         'NAME': mongo_connect['db_name'],
-#         'USER': mongo_connect['username'],
-#         'PASSWORD': mongo_connect['password'],
-#         'HOST': mongo_connect['hostname'],
-#         'PORT': mongo_connect['port'],
-#     }
-# }
-
+{% else %}
 #################################################
 # Local mongodb database
 #################################################
@@ -142,6 +109,7 @@ DATABASES = {
         'NAME': '{{ cookiecutter.local_mongo_database_name }}',
     }
 }
+
 { % endif %}
 
 
